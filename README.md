@@ -65,7 +65,7 @@ exercise the production class — see the docstring in `routing_engine.py` for d
 
 ## License
 
-[To be added by the authors — see the step-by-step notes provided alongside this file.]
+This project is licensed under the MIT License — see the LICENSE file for details.
 
 ## Citation
 
