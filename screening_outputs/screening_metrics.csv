@@ -1,0 +1,5 @@
+scenario,rainfall_mmhr,runoff_mm,valid_pixels,valid_area_m2,area_weighted_mean_depth_m,min_depth_m,max_depth_m,expected_volume_m3,mapped_volume_m3,volume_residual_m3,relative_volume_error_percent,weight_normalization,output
+moderate,50.0,0.0,4980592,4482532800.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,/mnt/data/Hexalink_Imo_DEM_Verification/imo_flood_moderate.tif
+heavy,100.0,0.0,4980592,4482532800.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,/mnt/data/Hexalink_Imo_DEM_Verification/imo_flood_heavy.tif
+extreme,200.0,75.0,4980592,4482532800.0,0.075,0.04415953991583376,0.17663815966333504,336189959.99999994,336189959.99999994,0.0,0.0,1.698387259988371,/mnt/data/Hexalink_Imo_DEM_Verification/imo_flood_extreme.tif
+catastrophic,300.0,175.0,4980592,4482532800.0,0.175,0.10303892647027878,0.4121557058811151,784443240.0,784443240.0,0.0,0.0,1.698387259988371,/mnt/data/Hexalink_Imo_DEM_Verification/imo_flood_catastrophic.tif
