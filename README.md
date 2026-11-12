@@ -2,21 +2,21 @@
 
 A mass-conservative hexagonal finite-volume framework for hydrologic routing and rapid flood susceptibility screening, demonstrated on the Imo River Basin, Nigeria.
 
-This repository accompanies the manuscript **“Hexalink: A Mass-Conservative Hexagonal Finite-Volume Framework for Hydrologic Routing and Rapid Flood Screening”** (under revision at **Environmental Modelling & Software**, manuscript **ENVSOFT-D-26-02733**).
+The repository provides the routing code, a separate scenario-based screening workflow, numerical tests, and example outputs.
 
 ## Contents
 
-| File | Purpose | Manuscript section |
+| File | Purpose | Description |
 |---|---|---|
-| `routing_engine.py` | Dynamic routing engine, six-neighbor edge fluxes, donor limiting and four-store accounting; includes bundled checks A–D | §§3–6 |
-| `run_headline.py` | Main 77,434-cell Imo harmonic-flux routing demonstration | §7.3, Table 6 |
-| `run_resolution.py` | Existing 75/100/300 m resolution-sensitivity tests | §6.7, Table 4 |
-| `run_sensitivity.py` | Existing one-at-a-time parameter-sensitivity experiments | §7.7, Table 9 |
-| `run_imo_scenarios.py` | **Area-conservative algebraic screening** for four rainfall scenarios | §§5.6, 7.4, Table 7 |
-| `extract_metrics.py` | Summary metrics for output rasters | §7 |
-| `tests/test_screening_mass_balance.py` | Synthetic regression tests for the screening implementation | §5.6 |
+| `routing_engine.py` | Dynamic routing engine, six-neighbor edge fluxes, donor limiting and four-store accounting; includes bundled checks A–D | Routing and storage accounting |
+| `run_headline.py` | Main 77,434-cell Imo harmonic-flux routing demonstration | Dynamic-routing example |
+| `run_resolution.py` | Existing 75/100/300 m resolution-sensitivity tests | Resolution study |
+| `run_sensitivity.py` | Existing one-at-a-time parameter-sensitivity experiments | Parameter sensitivity |
+| `run_imo_scenarios.py` | **Area-conservative algebraic screening** for four rainfall scenarios | Algebraic screening |
+| `extract_metrics.py` | Summary metrics for output rasters | Output summaries |
+| `tests/test_screening_mass_balance.py` | Synthetic regression tests for the screening implementation | Screening regression checks |
 | `environment.yml` | Conda environment | — |
-| `reprojected_elevation_2.tif` | SRTM-derived 30 m Imo DEM in EPSG:32632 | §7.1 |
+| `reprojected_elevation_2.tif` | SRTM-derived 30 m Imo DEM in EPSG:32632 | DEM input |
 
 ## Requirements and setup
 
@@ -46,11 +46,11 @@ For each valid hexagon, DEM-elevation-class weights of 1, 2 and 4 are normalized
 
 The dynamic-routing engine retains the manuscript's harmonic face-averaging formulation; the screening corrections do **not** change its equations or previous routing results. The four prognostic water stores use conceptual vadose, groundwater and channel process representations. The routine `run_imo_scenarios.py` does not simulate lateral flow, travel time, or inundation dynamics.
 
-The bundled dynamic-engine Tests A–C are standalone reference-math checks rather than direct tests of the production class; Test D exercises the production engine. The screening regression tests are numerical implementation tests, **not physical validation** of flooding.
+The screening regression tests assess the screening implementation and conservation of prescribed runoff volume. They do **not** constitute physical validation or demonstrate predictive flood accuracy.
 
-## Software citation and archiving
+## Citation and releases
 
-The manuscript is under revision at **Environmental Modelling & Software** (not *Advances in Water Resources*). Once the corrected files and regenerated Imo outputs have been committed, cite the **exact updated commit** and create an immutable archival release. An earlier archived v1.0 snapshot must not be described as containing subsequent corrections.
+Use the versioned GitHub release and its archival DOI (when available) to identify the exact software version used in an analysis. Numerical results should be associated with the code revision and input datasets that generated them.
 
 ## License
 

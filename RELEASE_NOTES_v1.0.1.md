@@ -7,7 +7,7 @@ This is a maintenance release of the **existing harmonic-flux Hexalink framework
 - Remove the artificial nonzero screening depth floor; S1 and S2 remain zero.
 - Correct flat-top hexagon coverage of valid DEM pixels.
 - Include synthetic screening regression tests and verified screening GeoTIFFs and Figure 6.
-- Correct the manuscript journal name to **Environmental Modelling & Software** in README.
+- Update repository documentation and reproduction instructions.
 
 ## Reproduced Imo screening results
 - Valid DEM support: 4,980,592 pixels (30 m), area 4,482.5328 km²; 100% covered.

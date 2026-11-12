@@ -1,8 +1,7 @@
-"""Hexalink v1.0 — area-conservative rapid screening for the Imo River Basin.
+"""Hexalink — area-conservative rapid screening for the Imo River Basin.
 
 This script implements the separate *algebraic* screening pathway described in
-Section 5.6 and Section 7.4 of the Environmental Modelling & Software manuscript
-ENVSOFT-D-26-02733. It does not calculate routed hydraulic inundation depths.
+the Hexalink software workflow. It does not calculate routed hydraulic inundation depths.
 
 Four one-hour scenarios use prescribed intensities of 50, 100, 200 and 300 mm/h;
 infiltration capacity 120 mm/h and illustrative ET subtraction 5 mm/h.
@@ -140,8 +139,7 @@ def run_imo_scenarios(dem_path=None, hex_radius=150, duration_min=60,
         ((p, i + 1) for i, p in enumerate(hexagons)),
         out_shape=dem.shape, transform=transform, fill=0, dtype=np.int32,
     )
-    # The published screening script left some valid raster pixels unassigned.
-    # Reject that case rather than silently undercount the DEM-supported area.
+    # Reject uncovered valid pixels rather than silently undercount the domain.
     uncovered = int(np.count_nonzero(valid_mask & (hex_ids == 0)))
     if uncovered:
         raise ValueError(f"Screening grid leaves {uncovered} valid DEM pixels uncovered")
@@ -182,7 +180,6 @@ def run_imo_scenarios(dem_path=None, hex_radius=150, duration_min=60,
                 quantity="algebraic equivalent screening depth",
                 hydrodynamic_simulation="false",
                 normalization="valid DEM pixel area-weighted 1/2/4 weights",
-                journal="Environmental Modelling & Software",
             )
         metric = {
             "scenario": name,
