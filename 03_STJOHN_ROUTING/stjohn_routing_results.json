@@ -1,0 +1,39 @@
+{
+  "case": "Synthetic localized rainfall; nominal full hex geometry",
+  "cells": 68292,
+  "edges": 203076,
+  "radius_m": 300.0,
+  "nominal_area_m2": 233826.85902179845,
+  "mesh_domain_nominal_area_km2": 15968.50385631666,
+  "independent_dem_mask_area_km2": 15744.41,
+  "rainfall_patch_cells": 1945,
+  "rainfall_patch_nominal_area_km2": 454.79324079739797,
+  "rainfall_input_m3": 68218986.11960949,
+  "final_storage_m3": 68218986.1196098,
+  "outlet_m3": 0.0,
+  "mass_closure_fraction": 4.587057106391837e-15,
+  "wet_cells_outside_patch_gt_0p1mm": 98,
+  "max_depth_m": 2.631666919663866,
+  "min_storage_m3": -6.069929120152421e-11,
+  "checkpoints": [
+    {
+      "elapsed_min": 30.0,
+      "input_m3": 68218986.11960949,
+      "storage_m3": 68218986.1196098,
+      "outlet_m3": 0.0,
+      "mass_closure_fraction": 4.587057106391837e-15,
+      "wet_cells_beyond_footprint_gt_0p1mm": 88,
+      "max_depth_m": 1.4921141411136323
+    },
+    {
+      "elapsed_min": 60.0,
+      "input_m3": 68218986.11960949,
+      "storage_m3": 68218986.1196098,
+      "outlet_m3": 0.0,
+      "mass_closure_fraction": 4.587057106391837e-15,
+      "wet_cells_beyond_footprint_gt_0p1mm": 98,
+      "max_depth_m": 2.631666919663866
+    }
+  ],
+  "engine_sha256": "e84e39ebd9652843288f52fffa49bace1aea923880708fab65504d6762e9043d"
+}

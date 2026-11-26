@@ -1,0 +1,142 @@
+{
+  "test_identifier": "Hexalink numerical verification",
+  "source_sha256": "c91fd09b21f04c0ca560f286df412cfc2ef91f0176d483164ee518c084a4cba9",
+  "source_file": "../routing_engine.py",
+  "analytical_reference": "2D Barenblatt--Pattle exact solution for h_t=(K/m)*Laplace(h^m); m=8/3, K=1/(n sqrt(Sf))",
+  "analytical_reference_doi": "10.1007/s10915-024-02642-x",
+  "analytical_parameters": {
+    "m": 2.6666666666666665,
+    "K": 2000.0,
+    "initial_time_s": 10.0,
+    "final_time_s": 40.0,
+    "central_depth_initial_m": 0.5,
+    "front_radius_initial_m": 200.79211537467287,
+    "initial_exact_mass_m3": 39581.58714452873
+  },
+  "flat_analytical": [
+    {
+      "radius_m": 40.0,
+      "dt_s": 0.2,
+      "cells": 235,
+      "edges": 648,
+      "steps": 150,
+      "relative_L1_error_pct_exact_mass": 2.5617899469075693,
+      "initial_discretization_mass_bias_pct": -0.12078894033811238,
+      "mass_closure_fraction": 0.0,
+      "minimum_depth_m": 1.6783318718300432e-168,
+      "outlet_volume_m3": 2.918302428437408e-281,
+      "frozen_coefficient_tau_initial_s": 2.0639337139175855,
+      "frozen_coefficient_tau_final_s": 4.694051471313971,
+      "dt_over_initial_tau": 0.09690233685866627,
+      "dt_over_final_tau": 0.04260711694838223
+    },
+    {
+      "radius_m": 20.0,
+      "dt_s": 0.05,
+      "cells": 925,
+      "edges": 2664,
+      "steps": 600,
+      "relative_L1_error_pct_exact_mass": 0.9780132968764529,
+      "initial_discretization_mass_bias_pct": 0.07720402599964427,
+      "mass_closure_fraction": -3.6735993374339583e-16,
+      "minimum_depth_m": 0.0,
+      "outlet_volume_m3": 0.0,
+      "frozen_coefficient_tau_initial_s": 0.4854796690347369,
+      "frozen_coefficient_tau_final_s": 1.141049404758496,
+      "dt_over_initial_tau": 0.10299092462391544,
+      "dt_over_final_tau": 0.04381931210996297
+    },
+    {
+      "radius_m": 10.0,
+      "dt_s": 0.02,
+      "cells": 3655,
+      "edges": 10746,
+      "steps": 1500,
+      "relative_L1_error_pct_exact_mass": 0.22293375571061894,
+      "initial_discretization_mass_bias_pct": -0.0060465177613378,
+      "mass_closure_fraction": -1.838328906894644e-16,
+      "minimum_depth_m": 0.0,
+      "outlet_volume_m3": 0.0,
+      "frozen_coefficient_tau_initial_s": 0.11962418040216219,
+      "frozen_coefficient_tau_final_s": 0.2837606734039063,
+      "dt_over_initial_tau": 0.16719027819260615,
+      "dt_over_final_tau": 0.07048193028331273
+    }
+  ],
+  "slope_numerical": [
+    {
+      "dt_s": 0.08,
+      "steps": 400,
+      "cells": 1369,
+      "edges": 3972,
+      "mass_closure_fraction": -1.8912677626962518e-16,
+      "L1_difference_vs_independent_Cartesian_reference_pct_initial_mass": 6.1045121569144385,
+      "com_x_m": -11.92719786353963,
+      "wet_front_max_x_m_at_1mm": 75.0,
+      "minimum_depth_m": -2.11093272152014e-13,
+      "frozen_coefficient_tau_initial_s": 1.2595823045879415,
+      "frozen_coefficient_tau_final_s": 2.6486855199785007,
+      "dt_over_initial_tau": 0.06351311836360794,
+      "dt_over_final_tau": 0.030203661173278645
+    },
+    {
+      "dt_s": 0.04,
+      "steps": 800,
+      "cells": 1369,
+      "edges": 3972,
+      "mass_closure_fraction": -1.8912677626962518e-16,
+      "L1_difference_vs_independent_Cartesian_reference_pct_initial_mass": 6.101587466583662,
+      "com_x_m": -11.963416804804206,
+      "wet_front_max_x_m_at_1mm": 75.0,
+      "minimum_depth_m": -2.5376502727920004e-13,
+      "frozen_coefficient_tau_initial_s": 1.2595823045879415,
+      "frozen_coefficient_tau_final_s": 2.6530793562386474,
+      "dt_over_initial_tau": 0.03175655918180397,
+      "dt_over_final_tau": 0.01507682003779534
+    },
+    {
+      "dt_s": 0.02,
+      "steps": 1600,
+      "cells": 1369,
+      "edges": 3972,
+      "mass_closure_fraction": 1.8912677626962518e-16,
+      "L1_difference_vs_independent_Cartesian_reference_pct_initial_mass": 6.100127052797911,
+      "com_x_m": -11.981477284123178,
+      "wet_front_max_x_m_at_1mm": 75.0,
+      "minimum_depth_m": -4.954358631121518e-13,
+      "frozen_coefficient_tau_initial_s": 1.2595823045879415,
+      "frozen_coefficient_tau_final_s": 2.655280842254014,
+      "dt_over_initial_tau": 0.015878279590901986,
+      "dt_over_final_tau": 0.007532159943963746
+    }
+  ],
+  "timestep_refinement": {
+    "L1_0p08_vs_0p04_pct": 0.12961840151342857,
+    "L1_0p04_vs_0p02_pct": 0.06466535753840862,
+    "difference_ratio": 2.004448849392667
+  },
+  "lake_at_rest": {
+    "cells": 595,
+    "wet_cells": 285,
+    "dry_cells": 310,
+    "maximum_depth_change_m": 0.0,
+    "Sf_min": 0.0065451510853309245,
+    "Sf_max": 0.011078247078843783,
+    "frozen_coefficient_tau_initial_s": 0.06798123892296293,
+    "mass_residual_fraction": 0.0,
+    "minimum_depth_m": 0.0
+  },
+  "stability_interpretation": {
+    "frozen_coefficient_diagonal_timescale": "tau_i = A_hex / sum_j (Kface M_ij w_ij /d_ij), evaluated at selected states; valid as a fixed-coefficient explicit diagonal nonnegativity bound for the simple closed-source-free linearized update only",
+    "positivity": "donor aggregate limiter controls instantaneous outward demand, with minor floating-point residuals; it is not a general nonlinear convergence/stability proof",
+    "limitations": "No general CFL guarantee or unconditional stability for steep terrain, strongly nonlinear fronts, runoff boundary outflow or arbitrary dt."
+  },
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "pandas": "2.2.3",
+    "rasterio": "1.5.0"
+  },
+  "provenance_note": "All hexagonal simulations call HexalinkRoutingEngine._route_surface. The sloping-terrain reference uses an independently discretized Cartesian finite-volume model; its rebuild script and reference arrays are included."
+}

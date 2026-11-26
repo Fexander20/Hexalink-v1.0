@@ -1,0 +1,78 @@
+{
+  "status": "EVALUATED",
+  "source": "Global Flood Database (Tellman et al. 2021), GEE GLOBAL_FLOOD_DB/MODIS_EVENTS/V1",
+  "event_reference": "GFD DFO_3982, system:index DFO_3982_From_20120902_to_20120907 (2-7 September 2012); confirmed matching paired raster SHA256 9e2c8b41950c7ab0773f96788ca82666013fabe318e362beecfa949b6948dce9",
+  "observation_legend": {
+    "0": "clear non-water/dry",
+    "1": "observed flood, excluding permanent water",
+    "255": "unobserved or permanent water"
+  },
+  "geographic_area": "St John basin through Mt Finlay, Liberia",
+  "evaluation_grid_crs": "EPSG:32629",
+  "evaluation_grid_resolution_m": [
+    250.0,
+    250.0
+  ],
+  "domain_eligible_250m_pixels": 249995,
+  "paired_eligible_pixels": 216906,
+  "paired_domain_fraction": 0.8676413528270566,
+  "paired_flood_pixels": 70,
+  "interpretation": "Ordinal terrain-based flood-priority discrimination against mapped event flood (not water depth or dynamic routing). The screening classes are derived entirely from basin-wide elevation percentiles.",
+  "limitations": [
+    "GFD satellite event is composite/maximum flood, possibly incomplete and cloud affected",
+    "250 m satellite observations are not independent 100 m training samples",
+    "Missing/permanent water pixels excluded, dry means satellite-observed dry within event footprint",
+    "Event occurrence need not coincide with synthetic one-hour rainfall scenarios",
+    "Current screening rank is elevation-percentile rank; elevation comparison is tautological"
+  ],
+  "valid_observed_pixels": 216906,
+  "observed_flood_pixels": 70,
+  "observed_dry_pixels": 216836,
+  "observed_flood_fraction": 0.00032272044111274006,
+  "ROC_AUC": 0.7037874245973915,
+  "average_precision": 0.001245503199211287,
+  "random_AP_reference": 0.00032272044111274006,
+  "classes": [
+    {
+      "screening_class": 1,
+      "pixels": 98084,
+      "fraction_of_valid_observation_support": 0.4521958820871714,
+      "flooded_pixels": 21,
+      "observed_flood_rate": 0.00021410219811590067
+    },
+    {
+      "screening_class": 2,
+      "pixels": 96067,
+      "fraction_of_valid_observation_support": 0.4428969230911086,
+      "flooded_pixels": 7,
+      "observed_flood_rate": 7.286581240176128e-05
+    },
+    {
+      "screening_class": 4,
+      "pixels": 22755,
+      "fraction_of_valid_observation_support": 0.10490719482172,
+      "flooded_pixels": 42,
+      "observed_flood_rate": 0.0018457481872116018
+    }
+  ],
+  "high_class_only_4": {
+    "actual_selected_area_fraction": 0.10490719482172,
+    "TP": 42,
+    "FP": 22713,
+    "FN": 28,
+    "TN": 194123,
+    "recall": 0.6,
+    "precision": 0.0018457481872116018,
+    "false_positive_rate": 0.10474736667343061
+  },
+  "medium_or_high_2_and_4": {
+    "actual_selected_area_fraction": 0.5478041179128286,
+    "TP": 49,
+    "FP": 118773,
+    "FN": 21,
+    "TN": 98063,
+    "recall": 0.7,
+    "precision": 0.00041238154550504117,
+    "false_positive_rate": 0.5477549853345386
+  }
+}

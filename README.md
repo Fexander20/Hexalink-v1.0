@@ -1,57 +1,86 @@
-# Hexalink
+# Hexalink v2.0.0
 
-A mass-conservative hexagonal finite-volume framework for hydrologic routing and rapid flood susceptibility screening, demonstrated on the Imo River Basin, Nigeria.
+**Hexagonal finite-volume surface routing and terrain-based flood screening**
 
-The repository provides the routing code, a separate scenario-based screening workflow, numerical tests, and example outputs.
+Hexalink is a Python research implementation with two distinct components:
 
-## Contents
+1. **Surface routing:** explicit mass-conservative transfer among regular hexagonal finite volumes under a nonlinear, hydraulic-head-driven flux formulation.
+2. **Rapid screening:** an independent algebraic terrain-priority calculation that distributes a specified effective-runoff volume. Screening-equivalent depth is **not** simulated inundation depth.
 
-| File | Purpose | Description |
-|---|---|---|
-| `routing_engine.py` | Dynamic routing engine, six-neighbor edge fluxes, donor limiting and four-store accounting; includes bundled checks A–D | Routing and storage accounting |
-| `run_headline.py` | Main 77,434-cell Imo harmonic-flux routing demonstration | Dynamic-routing example |
-| `run_resolution.py` | Existing 75/100/300 m resolution-sensitivity tests | Resolution study |
-| `run_sensitivity.py` | Existing one-at-a-time parameter-sensitivity experiments | Parameter sensitivity |
-| `run_imo_scenarios.py` | **Area-conservative algebraic screening** for four rainfall scenarios | Algebraic screening |
-| `extract_metrics.py` | Summary metrics for output rasters | Output summaries |
-| `tests/test_screening_mass_balance.py` | Synthetic regression tests for the screening implementation | Screening regression checks |
-| `environment.yml` | Conda environment | — |
-| `reprojected_elevation_2.tif` | SRTM-derived 30 m Imo DEM in EPSG:32632 | DEM input |
+The release contains the authoritative routing engine, numerical verification programs, St. John basin demonstration scripts, flood-screening scripts, Global Flood Database (GFD) assessment scripts, and selected numerical results. It does **not** claim calibrated historical flood prediction or operational forecasting skill.
 
-## Requirements and setup
+## Repository structure
 
-Use Python ≥3.9 and the dependencies in `environment.yml` (NumPy, Rasterio, SciPy, Shapely and GeoPandas). The Imo DEM is derived from public NASA/USGS SRTM data and is stored in the main repository.
+| Path | Purpose |
+| --- | --- |
+| `routing_engine.py` | Canonical surface-routing implementation |
+| `02_NUMERICAL_TESTS/` | Analytical nonlinear diffusion, independent Cartesian reference, timestep and equilibrium checks |
+| `03_STJOHN_ROUTING/` | Controlled synthetic routing experiment over a 300 m hex mesh in Liberia |
+| `04_SCREENING/` | Separate volume-accounting terrain-priority screening |
+| `05_GFD_PROVENANCE/` | Google Earth Engine export and event-based spatial-ranking evaluation |
+| `06_RESULTS/` | Numerical results and aggregate statistics |
+| `DATA_AVAILABILITY.md` | Third-party source information, exclusions, and reproducibility limits |
+| `CITATION.cff` | Software citation metadata |
 
-```bash
-conda env create -f environment.yml
-conda activate hexalink
-```
+## Setup
 
-## Run the computations
+Recommended: Python 3.11 or later and an isolated virtual environment. The reference environment used Python 3.13.5. Install the dependencies:
 
 ```bash
-python routing_engine.py
-python run_headline.py
-python run_resolution.py 75 result_R75.json
-python run_sensitivity.py REF result_REF.json
-python run_imo_scenarios.py --dem reprojected_elevation_2.tif --output-dir screening_outputs
-python -m unittest discover -s tests -v
+python -m pip install -r requirements.txt
 ```
 
-`run_imo_scenarios.py` generates the output files `imo_flood_{moderate|heavy|extreme|catastrophic}.tif` for compatibility. **The TIFF values are algebraic equivalent screening depths, not simulated flood depths or inundation predictions.** Its four scenarios impose one-hour rainfalls of 50/100/200/300 mm h⁻¹, prescribed infiltration capacity 120 mm h⁻¹ and illustrative ET subtraction 5 mm h⁻¹.
+### Numerical verification
 
-For each valid hexagon, DEM-elevation-class weights of 1, 2 and 4 are normalized by their **valid-DEM-pixel-area-weighted mean**. A proper flat-top hexagonal grid covers all valid raster pixels, and no nonzero depth floor or output clipping is applied. Thus S1 and S2 return exactly zero, while S3 and S4 have valid-area-weighted means of 0.075 m and 0.175 m, respectively. `screening_metrics.csv` and `screening_metrics.json` record scenario volumes and residuals. The screening workflow was executed on the Imo DEM (4,980,592 valid 30 m pixels; 4,482.5328 km²); the maximum screening depths are 0.17663816 m (S3) and 0.41215571 m (S4), and mapped runoff volumes are 336,189,960 m³ (S3) and 784,443,240 m³ (S4). The exported GeoTIFF readback closes to within 5.96 × 10⁻⁸ m³ in absolute volume.
+From the repository root:
 
-## Model limitations
+```bash
+python 02_NUMERICAL_TESTS/verify_hexalink_numerics.py
+python 02_NUMERICAL_TESTS/rebuild_independent_cartesian_reference.py
+```
 
-The dynamic-routing engine retains the manuscript's harmonic face-averaging formulation;The screening workflow is independent of the dynamic-routing engine and does not alter its governing equations. The four prognostic water stores use conceptual vadose, groundwater and channel process representations. The routine `run_imo_scenarios.py` does not simulate lateral flow, travel time, or inundation dynamics.
+The first command evaluates the analytical nonlinear-diffusion benchmark, sloping-bed comparison, timestep sensitivity, and lake-at-rest condition using the **same root routing engine**. It writes numerical results and figures in `02_NUMERICAL_TESTS/`. The second reconstructs the independent 2 m Cartesian comparison field and compares it with the distributed reference. Neither command needs a basin DEM.
 
-The screening regression tests assess the screening implementation and conservation of prescribed runoff volume. They do **not** constitute physical validation or demonstrate predictive flood accuracy.
+### St. John synthetic surface routing
 
-## Citation and releases
+```bash
+python 03_STJOHN_ROUTING/run_stjohn_surface_routing.py
+```
 
-Use the versioned GitHub release and its archival DOI (when available) to identify the exact software version used in an analysis. Numerical results should be associated with the code revision and input datasets that generated them.
+Requires a locally supplied `03_STJOHN_ROUTING/hexalink_stjohn_config_300m.npz`. The DEM-derived mesh is not distributed; see `DATA_AVAILABILITY.md`. The script checks its expected geometry before running. As the mesh-construction procedure is not included, the public repository **does not enable independent end-to-end reproduction** of this case from the original DEM alone.
 
-## License
+### Terrain-based screening
 
-MIT License; retain `LICENSE` from the main repository.
+```bash
+python 04_SCREENING/run_stjohn_screening.py --dem PATH_TO_DEM --mesh PATH_TO_MESH --out PATH_TO_OUTPUT
+```
+
+The supplied DEM must be a compatible 100 m GeoTIFF in EPSG:32629. The local mesh must contain the attributes expected by the script. `python 04_SCREENING/run_stjohn_screening.py --help` displays the options.
+
+### GFD assessment
+
+The scripts in `05_GFD_PROVENANCE/` document event DFO_3982 (2–7 September 2012). Export legally accessed observation data through Google Earth Engine, then use `python 05_GFD_PROVENANCE/evaluate_gfd_observation.py --help` to supply the appropriate local inputs. The evaluation is a **spatial ranking comparison** for the independent screening pathway, not validation of dynamic routing against observations.
+
+## Reported results
+
+| Check | Result |
+| --- | --- |
+| Analytical nonlinear diffusion normalized L1 error (R = 40, 20, 10 m) | 2.5618%, 0.9780%, 0.2229% |
+| Sloping-bed depth difference versus independent 2 m Cartesian reference | 6.1001% at specified configuration |
+| Lake-at-rest maximum depth change | 0.0 m |
+| St. John surface-routing example | 68,292 full hexagons, 203,076 internal edges |
+| St. John synthetic rain pulse | 300 mm/h for 30 min over 1,945 cells; 60 min modeled |
+| St. John recorded mass-closure fraction | 4.587 × 10⁻¹⁵ |
+| Screening versus GFD DFO_3982 | ROC-AUC 0.7038; 70 flood-positive of 216,906 valid pixels |
+
+Numerical checks are **verification**, not evidence of predictive performance. The event-based screening assessment has very few mapped flood positives and cannot establish generalizable accuracy. The synthetic pulse is not a historical flood reconstruction.
+
+The St. John DEM catchment mask area is approximately **15,744.41 km²**; its 68,292 uncut full-hexagon computational domain covers approximately **15,968.50 km²**. These areas are not interchangeable. A donor-positivity safeguard is included in the routing algorithm; it does not imply unconditional stability.
+
+## Data, rights and citation
+
+Only original software and selected shareable tabular/aggregate results are distributed. The repository deliberately excludes third-party DEMs, the DEM-derived mesh, GFD raster imagery and derived map GeoTIFFs. Consult `DATA_AVAILABILITY.md` to acquire inputs independently and respect source-specific terms. MIT applies to the original **software**, not to third-party data.
+
+Software author and copyright holder: **Ifeanyi Chidozie Oli**. See `CITATION.cff`. Cite the exact archived release DOI shown on Zenodo after publication. Manuscript authorship is a separate matter.
+
+**Research use notice:** this code has been numerically checked in the reported cases, but is not a validated operational flood forecasting system. No warranty is provided; see `LICENSE`.

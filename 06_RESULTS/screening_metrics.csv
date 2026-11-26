@@ -1,0 +1,5 @@
+scenario,rainfall_mmhr,runoff_mm,model_mesh_radius_m,valid_pixels,area_km2,mean_screening_depth_m,min_screening_depth_m,max_screening_depth_m,expected_volume_m3,mapped_volume_m3,file_readback_volume_m3,volume_residual_m3,rel_error_percent,normalization,filename
+moderate,50.0,0.0,300,1574441,15744.41,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,StJohn_screening_moderate.tif
+heavy,100.0,0.0,300,1574441,15744.41,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,StJohn_screening_heavy.tif
+extreme,200.0,75.0,300,1574441,15744.41,0.07500000000000001,0.044041046842744215,0.17616418737097686,1180830750.0,1180830750.0000002,1180830750.0000005,2.384185791015625e-07,2.0190749529647877e-14,1.7029567954594678,StJohn_screening_extreme.tif
+catastrophic,300.0,175.0,300,1574441,15744.41,0.17499999999999996,0.10276244263306983,0.4110497705322793,2755271750.0,2755271749.9999995,2755271749.9999986,-4.76837158203125e-07,1.730635673969818e-14,1.7029567954594678,StJohn_screening_catastrophic.tif
